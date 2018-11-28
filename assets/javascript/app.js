@@ -9,7 +9,7 @@ function displayGif () {
 
     //testing if the right name appears
     //commented this out below
-    alert(teamGif);
+    // alert(teamGif);
 
     //using ajax now to obtain info from giphy website
     //remeber we can use .gitIgnore for API key
@@ -22,7 +22,16 @@ function displayGif () {
         method: "GET"
     }).then(function(response) {
 
+        $("#gifs").empty();
         console.log(response);
+        console.log(response.data[0].images.downsized.url);
+
+        for (var i = 0; i < 10; i++) {
+            $("#gifs").append("<img class='img' src='" + response.data[i].images.downsized.url + "'/>");
+            $("#gifs").append("<h4>Rating: " + response.data[i].rating.toUpperCase() + "</h4>");
+        }
+
+        
     });
 
 };
