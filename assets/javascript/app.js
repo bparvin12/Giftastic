@@ -6,9 +6,10 @@ function displayGif () {
     //creating variable that contains button name (data-name)
     var teamGif = $(this).attr("data-name");
     teamGif = teamGif.trim().replace(/ /g, "+");
+
     //testing if the right name appears
     //commented this out below
-    // alert(teamGif);
+    alert(teamGif);
 
     //using ajax now to obtain info from giphy website
     //remeber we can use .gitIgnore for API key
