@@ -32,7 +32,7 @@ function displayGif () {
             //add attributes to pictures that contain still url, animated, url, and state as still or animated
             
             //creates div to put the imgs in 
-            var gifDiv = $("<div>");
+            var gifDiv = $("<div class='imgDiv'>");
             // creats a p element that displaus rating 
             var rating = $("<p class='rating'>").text("Rating: " + results[i].rating.toUpperCase());
             // we need to create an img tag which will dold the imgs
@@ -108,11 +108,13 @@ $("#add-team").on('click', function(event){
     //add the text into our previous sports array
     sports.push(team);
 
+    
+
     renderButtons();
 });
 
 $("#clear").on('click', function() {
-    $("#gifs").empty();
+    $(".imgDiv").empty();
 })
 
 
