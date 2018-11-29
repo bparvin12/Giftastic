@@ -34,7 +34,7 @@ function displayGif () {
             //creates div to put the imgs in 
             var gifDiv = $("<div>");
             // creats a p element that displaus rating 
-            var rating = $("<p>").text("Rating: " + results.rating);
+            var rating = $("<p class='rating'>").text("Rating: " + results[i].rating.toUpperCase());
             // we need to create an img tag which will dold the imgs
             var sportImage = $("<img>");
             //create attributes that contain still url animated url and state
@@ -42,10 +42,12 @@ function displayGif () {
             sportImage.attr("data-still", results[i].images.downsized_still.url);
             sportImage.attr("data-animate", results[i].images.downsized.url);
             sportImage.attr("data-state", "still");
+            sportImage.addClass("pics");
 
             //append both rating and image to gifdiv 
-            gifDiv.append(rating);
             gifDiv.append(sportImage);
+            gifDiv.append(rating);
+            
 
             //append gifdiv to actual HTML
             $("#gifs").append(gifDiv);            
@@ -61,6 +63,17 @@ function startStopGif () {
     //this is getting the data state of the image. we used an onclick below
     //this refers to id #gif
     var state = $(this).attr("data-state");
+    //checking if state works
+    console.log(state);
+
+    if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+    }
+    if (state === "animate") {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "animate");
+    }
 }
 
 
@@ -105,5 +118,5 @@ $("#clear").on('click', function() {
 
 //invoking the functions
 $(document).on('click', '.team', displayGif);
-$(document).on('click', '#gif', startStopGif);
+$(document).on('click', '.pics', startStopGif);
 renderButtons();
