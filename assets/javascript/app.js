@@ -26,15 +26,42 @@ function displayGif () {
         console.log(response);
         console.log(response.data[0].images.downsized.url);
 
+        var results = response.data;
+
         for (var i = 0; i < 10; i++) {
-            $("#gifs").append("<img class='img' src='" + response.data[i].images.downsized.url + "'/>");
-            $("#gifs").append("<h4>Rating: " + response.data[i].rating.toUpperCase() + "</h4>");
+            //add attributes to pictures that contain still url, animated, url, and state as still or animated
+            
+            //creates div to put the imgs in 
+            var gifDiv = $("<div>");
+            // creats a p element that displaus rating 
+            var rating = $("<p>").text("Rating: " + results.rating);
+            // we need to create an img tag which will dold the imgs
+            var sportImage = $("<img>");
+            //create attributes that contain still url animated url and state
+            sportImage.attr("src", results[i].images.downsized_still.url);
+            sportImage.attr("data-still", results[i].images.downsized_still.url);
+            sportImage.attr("data-animate", results[i].images.downsized.url);
+            sportImage.attr("data-state", "still");
+
+            //append both rating and image to gifdiv 
+            gifDiv.append(rating);
+            gifDiv.append(sportImage);
+
+            //append gifdiv to actual HTML
+            $("#gifs").append(gifDiv);            
+            
         }
 
         
     });
 
 };
+//create a function that has an if/else statement for pictures to move or not
+function startStopGif () {
+    //this is getting the data state of the image. we used an onclick below
+    //this refers to id #gif
+    var state = $(this).attr("data-state");
+}
 
 
 //function for displaying sports data
@@ -71,8 +98,12 @@ $("#add-team").on('click', function(event){
     renderButtons();
 });
 
+$("#clear").on('click', function() {
+    $("#gifs").empty();
+})
 
 
 //invoking the functions
 $(document).on('click', '.team', displayGif);
+$(document).on('click', '#gif', startStopGif);
 renderButtons();
